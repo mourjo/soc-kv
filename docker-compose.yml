@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16.4
+    container_name: postgres_soc_kv
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=soc_kv_db
+      - POSTGRES_PASSWORD=soc_kv
+      - POSTGRES_USER=justin
+    ports:
+      - '5432:5432'
+    volumes:
+      - './tmp/volumes/postgres:/var/lib/postgresql/data'
+      - './src/test/resources/init.sql:/docker-entrypoint-initdb.d/init.sql'
