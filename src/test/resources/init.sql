@@ -13,13 +13,18 @@ GRANT ALL PRIVILEGES ON DATABASE soc_kv_db TO justin;
 
 CREATE TABLE key_values (
    id serial PRIMARY KEY,
-   k TEXT UNIQUE,
-   v TEXT,
+   k TEXT UNIQUE NOT NULL,
+   v TEXT NOT NULL,
    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-
+CREATE TABLE key_value_log (
+   id serial PRIMARY KEY,
+   k TEXT NOT NULL,
+   v TEXT NOT NULL,
+   logged_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
 
 
 \c soc_kv_test_db;
@@ -33,3 +38,9 @@ CREATE TABLE key_values (
 );
 
 
+CREATE TABLE key_value_log (
+   id serial PRIMARY KEY,
+   k TEXT NOT NULL,
+   v TEXT NOT NULL,
+   logged_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);

@@ -1,28 +1,19 @@
 package soc.kv.web.repository;
 
+import static soc.kv.common.Database.getConnection;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import lombok.SneakyThrows;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
-import soc.kv.common.Environment;
+import soc.kv.common.Database;
 import soc.kv.entities.KeyValue;
 
 public class KVRepository {
 
     @SneakyThrows
-    private Connection getConnection() {
-        String host = Environment.getPostgresHost();
-        String port = Environment.getPostgresPort();
-        String database = Environment.getPostgresDatabase();
-        String username = Environment.getPostgresUser();
-        String connectionString = "jdbc:postgresql://%s:%s/%s".formatted(host, port, database);
-        return DriverManager.getConnection(connectionString, username, null);
-    }
-
-    @SneakyThrows
     public void upsert(String key, String value) {
-        try (Connection conn = getConnection()) {
+        try (Connection conn = Database.getConnection()) {
             DSL.using(conn, SQLDialect.POSTGRES)
                 .insertInto(KeyValue.table())
                 .columns(KeyValue.keyField(), KeyValue.valueField())
@@ -36,7 +27,7 @@ public class KVRepository {
 
     @SneakyThrows
     public KeyValue fetch(String key) {
-        try (Connection conn = getConnection()) {
+        try (Connection conn = Database.getConnection()) {
             return DSL.using(conn, SQLDialect.POSTGRES)
                 .select(KeyValue.asterisk())
                 .from(KeyValue.table())

@@ -14,7 +14,8 @@ public class Launcher {
         final KVController controller = new KVController();
 
         return Javalin.create()
-            .put("/{key}/{value}", controller::putKeyValue)
-            .get("/{key}", controller::getKeyGivenValue);
+            .put("/{key}/{value}", controller::setKeyValue)
+            .get("/{key}", controller::getValue)
+            .get("/{key}/history", controller::getValueHistory);
     }
 }
