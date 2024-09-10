@@ -9,11 +9,13 @@ public class CRUDService {
 
     private final KVRepository repository = new KVRepository();
     private final HistoryService historyService = new HistoryService();
+    private final SearchService searchService = new SearchService();
 
     public KeyValue set(String key, String value) {
         var currentKeyValue = repository.fetch(key);
         boolean updated = updateIfChanged(currentKeyValue, key, value);
         if (updated) {
+            searchService.index(key, value);
             return repository.fetch(key);
         }
         return currentKeyValue;

@@ -15,6 +15,7 @@ public class Launcher {
 
         return Javalin.create()
             .put("/{key}/{value}", controller::setKeyValue)
+            .get("/search", controller::search)
             .get("/{key}", controller::getValue)
             .get("/{key}/history", controller::getValueHistory);
     }

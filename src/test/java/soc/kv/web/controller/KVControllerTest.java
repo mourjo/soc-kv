@@ -14,6 +14,7 @@ import soc.kv.web.Launcher;
 import soc.kv.web.dto.HistoryResponse;
 import soc.kv.web.dto.KVResponse;
 import soc.kv.web.dto.LogEntry;
+import soc.kv.web.dto.SearchResponse;
 
 class KVControllerTest {
 
@@ -30,6 +31,13 @@ class KVControllerTest {
     @SneakyThrows
     public static HistoryResponse toHistoryResponse(Response response) {
         var typeRef = new TypeReference<HistoryResponse>() {
+        };
+        return jackson.fromJsonString(response.body().string(), typeRef.getType());
+    }
+
+    @SneakyThrows
+    public static SearchResponse toSearchResponse(Response response) {
+        var typeRef = new TypeReference<SearchResponse>() {
         };
         return jackson.fromJsonString(response.body().string(), typeRef.getType());
     }
@@ -83,6 +91,19 @@ class KVControllerTest {
                     .stream().map(LogEntry::value)
                     .toList()
             );
+        });
+    }
+
+    @Test
+    void search() {
+        JavalinTest.test(app, (server, client) -> {
+            client.put("/current_city/amsterdam");
+            var searchResponse = client.get("/search?q=amsterdam");
+            Assertions.assertEquals(200, searchResponse.code());
+
+            var searchBody = toSearchResponse(searchResponse);
+            Assertions.assertEquals("amsterdam", searchBody.query());
+            Assertions.assertEquals(List.of(), searchBody.matches());
         });
     }
 
