@@ -4,7 +4,7 @@ import java.util.List;
 
 public class SearchService {
 
-    void index(String key, String value) {
+    public void index(String key, String value) {
 
     }
 
