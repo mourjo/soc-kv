@@ -58,3 +58,11 @@ curl -s -XGET localhost:8818/current_location/history | jq .
   ]
 }
 ```
+
+```curl 
+curl -s -XGET localhost:8818/search\?q=hehe  | jq .
+{
+  "query": "hehe",
+  "matches": []
+}
+```
