@@ -1,5 +1,6 @@
 package soc.kv.web.controller;
 
+import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import java.util.List;
@@ -13,11 +14,19 @@ import soc.kv.web.service.SearchService;
 
 public class KVController {
 
-    private final CRUDService crudService = new CRUDService();
-    private final HistoryService historyService = new HistoryService();
-    private final SearchService searchService = new SearchService();
+    private static final CRUDService crudService = new CRUDService();
+    private static final HistoryService historyService = new HistoryService();
+    private static final SearchService searchService = new SearchService();
 
-    public void setKeyValue(Context ctx) {
+    public static void configureRoutes(Javalin apiDefinition) {
+        apiDefinition
+            .put("/{key}/{value}", KVController::setKeyValue)
+            .get("/search", KVController::search)
+            .get("/{key}", KVController::getValue)
+            .get("/{key}/history", KVController::getValueHistory);
+    }
+
+    public static void setKeyValue(Context ctx) {
         String key = ctx.pathParam("key");
         String value = ctx.pathParam("value");
 
@@ -27,14 +36,14 @@ public class KVController {
         ctx.status(HttpStatus.OK);
     }
 
-    public void getValue(Context ctx) {
+    public static void getValue(Context ctx) {
         String key = ctx.pathParam("key");
         var savedKeyValue = crudService.get(key);
         ctx.json(KVResponse.from(savedKeyValue));
         ctx.status(HttpStatus.OK);
     }
 
-    public void getValueHistory(Context ctx) {
+    public static void getValueHistory(Context ctx) {
         String key = ctx.pathParam("key");
         var log = historyService.getHistory(key);
 
@@ -42,7 +51,7 @@ public class KVController {
         ctx.status(HttpStatus.OK);
     }
 
-    public void search(Context ctx) {
+    public static void search(Context ctx) {
         String phrase = ctx.queryParam("q");
         List<KeyValue> matchingEntries = searchService.findByPhrase(phrase)
             .stream()

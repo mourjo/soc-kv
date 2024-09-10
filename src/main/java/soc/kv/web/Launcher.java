@@ -11,12 +11,8 @@ public class Launcher {
     }
 
     public static Javalin buildApp() {
-        final KVController controller = new KVController();
-
-        return Javalin.create()
-            .put("/{key}/{value}", controller::setKeyValue)
-            .get("/search", controller::search)
-            .get("/{key}", controller::getValue)
-            .get("/{key}/history", controller::getValueHistory);
+        Javalin app = Javalin.create();
+        KVController.configureRoutes(app);
+        return app;
     }
 }
