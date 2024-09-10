@@ -13,6 +13,7 @@ Start the service using
 ```
 
 ## Using the service
+
 ```bash 
 curl -s -XPUT localhost:8818/current_location/amsterdam | jq .
 {
