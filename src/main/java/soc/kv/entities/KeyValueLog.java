@@ -13,6 +13,7 @@ import org.jooq.impl.DSL;
 @Getter
 @Table(name = "key_value_log")
 public class KeyValueLog {
+
     @Column(name = "id")
     long logId;
 

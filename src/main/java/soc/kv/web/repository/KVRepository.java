@@ -1,7 +1,5 @@
 package soc.kv.web.repository;
 
-import static soc.kv.common.Database.getConnection;
-
 import java.sql.Connection;
 import lombok.SneakyThrows;
 import org.jooq.SQLDialect;

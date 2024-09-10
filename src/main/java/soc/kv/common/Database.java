@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import lombok.SneakyThrows;
 
 public class Database {
+
     @SneakyThrows
     public static Connection getConnection() {
         String host = Environment.getPostgresHost();

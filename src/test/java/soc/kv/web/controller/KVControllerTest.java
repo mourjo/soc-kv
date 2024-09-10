@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import soc.kv.web.Launcher;
 import soc.kv.web.dto.HistoryResponse;
-import soc.kv.web.dto.LogEntry;
 import soc.kv.web.dto.KVResponse;
+import soc.kv.web.dto.LogEntry;
 
 class KVControllerTest {
 

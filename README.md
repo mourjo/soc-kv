@@ -36,7 +36,6 @@ curl -s -XGET localhost:8818/current_location | jq .
 }
 ```
 
-
 ```bash
 curl -s -XGET localhost:8818/current_location/history | jq .
 {

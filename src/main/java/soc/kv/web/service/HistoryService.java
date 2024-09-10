@@ -6,6 +6,7 @@ import soc.kv.entities.KeyValueLog;
 import soc.kv.web.repository.HistoryRepository;
 
 public class HistoryService {
+
     private HistoryRepository repository = new HistoryRepository();
 
     public void saveHistory(String key, String value) {
