@@ -15,6 +15,7 @@ public class CRUDService {
         var currentKeyValue = repository.fetch(key);
         boolean updated = updateIfChanged(currentKeyValue, key, value);
         if (updated) {
+            historyService.saveHistory(key, value);
             searchService.index(key, value);
             return repository.fetch(key);
         }
@@ -34,9 +35,5 @@ public class CRUDService {
 
     public KeyValue get(String key) {
         return repository.fetch(key);
-    }
-
-    public List<KeyValueLog> getHistory(String key) {
-        return historyService.getHistory(key);
     }
 }

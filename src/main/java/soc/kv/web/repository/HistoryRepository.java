@@ -2,6 +2,7 @@ package soc.kv.web.repository;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 import lombok.SneakyThrows;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -13,6 +14,7 @@ public class HistoryRepository {
     @SneakyThrows
     public List<KeyValueLog> readLog(String key) {
         try (Connection conn = Database.getConnection()) {
+            Map.of()
             return DSL.using(conn, SQLDialect.POSTGRES)
                 .select(KeyValueLog.asterisk())
                 .from(KeyValueLog.table())
