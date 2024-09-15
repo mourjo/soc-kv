@@ -1,8 +1,6 @@
 package soc.kv.web.service;
 
-import java.util.List;
 import soc.kv.entities.KeyValue;
-import soc.kv.entities.KeyValueLog;
 import soc.kv.web.repository.KVRepository;
 
 public class CRUDService {
@@ -27,7 +25,6 @@ public class CRUDService {
 
         if (mutated) {
             repository.upsert(key, value);
-            historyService.saveHistory(key, value);
         }
 
         return mutated;
