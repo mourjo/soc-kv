@@ -20,17 +20,18 @@ public class CRUDService {
         return currentKeyValue;
     }
 
-    private boolean updateIfChanged(KeyValue currentKeyValue, String key, String value) {
-        boolean mutated = currentKeyValue == null || !currentKeyValue.getValue().equals(value);
+    private boolean updateIfChanged(KeyValue current, String k, String v) {
+        boolean mutated = current == null || !current.getValue().equals(v);
 
         if (mutated) {
-            repository.upsert(key, value);
+            repository.upsert(k, v);
         }
 
         return mutated;
     }
 
     public KeyValue get(String key) {
+        //
         return repository.fetch(key);
     }
 }
