@@ -1,5 +1,20 @@
 # soc-kv
+This is a repository that implements the following functionalities. 
 
+- It is a KV store
+- Store string values against keys
+- Persist key-values in the database
+- History tracking of previous values
+- Text-based search of keys
+
+
+This repository is an example of how to separate concerns between controller, services and repositories - similar to 
+[Presetation-Domain-Data layering](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
+
+![](src/test/resources/presentation-domain-data-layering.png)
+
+
+## Starting the web server
 Start dependencies using
 
 ```bash 
